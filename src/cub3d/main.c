@@ -1,4 +1,16 @@
-#include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/18 11:13:24 by jhii              #+#    #+#             */
+/*   Updated: 2022/08/24 10:46:30 by jhii             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../inc/cub3d.h"
 
 int	main(int argc, char **argv)
 {
@@ -8,6 +20,6 @@ int	main(int argc, char **argv)
 		printf("Invalid number of arguments...\n");
 		return (1);
 	}
-	cub3d();
+	cub3d(argv[1]);
 	return (0);
 }

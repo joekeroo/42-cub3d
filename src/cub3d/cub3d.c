@@ -1,248 +1,123 @@
-#include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/18 10:21:16 by jhii              #+#    #+#             */
+/*   Updated: 2022/08/29 18:27:10 by jhii             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# define RAD 0.0174533
-
-int	check_out_of_bounds(t_cub *cub, t_coord coord)
-{
-	if (coord.x <= 0 || coord.x >= cub->x_size ||
-		coord.y <= 0 || coord.y >= cub->y_size)
-		return (1);
-	return (0);
-}
-
-void	draw_pixel(t_cub *cub, t_coord coord)
-{
-	int		dist;
-	char	*dest;
-
-	if (!check_out_of_bounds(cub, coord))
-	{
-		dist = coord.x * (cub->img.bbp / 8) + coord.y * cub->img.line_len;
-		dest = cub->img.addr + dist;
-		*(unsigned int *)dest = cub->color;
-	}
-}
-
-void	draw_square(t_cub *cub, int x, int y, int size, int border)
-{
-	t_coord	coord;
-
-	for (int i = y; i < y + size; i++)
-	{
-		for (int j = x; j < x + size; j++)
-		{
-			coord.x = j + border;
-			coord.y = i + border;
-			draw_pixel(cub, coord);
-		}
-	}
-}
-
-static void	draw_line_low(t_cub *cub, int dx, int dy)
-{
-	int		d;
-	int		dir;
-	t_coord	coord;
-
-	dir = 1 - (2 * (dy < 0));
-	if (dy < 0)
-		dy *= -1;
-	d = (2 * dy) - dx;
-	coord = cub->line[0];
-	while (coord.x < cub->line[1].x)
-	{
-		draw_pixel(cub, coord);
-		// draw_square(cub, coord.x, coord.y, 2, 0);
-		if (d > 0)
-		{
-			coord.y += dir;
-			d -= 2 * dx;
-		}
-		d += 2 * dy;
-		coord.x++;
-	}
-}
-
-static void	draw_line_high(t_cub *cub, int dx, int dy)
-{
-	int		d;
-	int		dir;
-	t_coord	coord;
-
-	dir = 1 - (2 * (dx < 0));
-	if (dx < 0)
-		dx *= -1;
-	d = (2 * dx) - dy;
-	coord = cub->line[0];
-	while (coord.y < cub->line[1].y)
-	{
-		draw_pixel(cub, coord);
-		// draw_square(cub, coord.x, coord.y, 2, 0);
-		if (d > 0)
-		{
-			coord.x += dir;
-			d -= 2 * dy;
-		}
-		d += 2 * dx;
-		coord.y++;
-	}
-}
-
-static void	draw_line(t_cub *cub)
-{
-	int	dx;
-	int	dy;
-	int	temp;
-
-	dx = cub->line[1].x - cub->line[0].x;
-	dy = cub->line[1].y - cub->line[0].y;
-	if ((cub->line[0].x > cub->line[1].x && abs(dx) > abs(dy))
-		|| (cub->line[0].y > cub->line[1].y && abs(dx) <= abs(dy)))
-	{
-		temp = cub->line[0].x;
-		cub->line[0].x = cub->line[1].x;
-		cub->line[1].x = temp;
-		temp = cub->line[0].y;
-		cub->line[0].y = cub->line[1].y;
-		cub->line[1].y = temp;
-	}
-	dx = cub->line[1].x - cub->line[0].x;
-	dy = cub->line[1].y - cub->line[0].y;
-	if (abs(dx) > abs(dy))
-		draw_line_low(cub, dx, dy);
-	else
-		draw_line_high(cub, dx, dy);
-}
+#include "../../inc/cub3d.h"
 
 void	render_map_2d(t_cub *cub)
 {
-	char	map[10][12] = {
-		{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
-		{'1', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1'},
-		{'1', '0', '1', '0', '0', '1', '0', '0', '0', '0', '0', '1'},
-		{'1', '1', '0', '0', 'N', '1', '0', '0', '0', '0', '0', '1'},
-		{'1', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1'},
-		{'1', '0', '1', '0', '0', '1', '0', '0', '0', '0', '0', '1'},
-		{'1', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '1'},
-		{'1', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1'},
-		{'1', '0', '1', '0', '0', '1', '0', '0', '0', '0', '0', '1'},
-		{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'}
-	};
-	for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < 12; j++) {
-			if (map[i][j] == '1')
-			{
-				draw_square(cub, j * 66, i * 66, 64, 2);
-			}
-			else if (map[i][j] == '0')
-			{
-				// draw floor
-			}
-		}
-	}
-}
+	int	i;
+	int	j;
 
-void	cast_rays(t_cub *cub, int deg)
-{
-	float	a;
-	(void)deg;
-
-	cub->line[0] = cub->player.pos;
-	cub->line[0].x += 4;
-	cub->line[0].y += 4;
-	// a = cub->player.a - RAD * 30;
-	a = cub->player.a;
-	if (a < 0)
-		a += 2 * M_PI;
-	else if (a > 2 * M_PI)
-		a -= 2 * M_PI;
-	for (int i = 0; i < 10; i++)
+	i = 0;
+	while (i < cub->map.height)
 	{
-		printf("player_direction %f\n", a);
-		printf("i %d\n", i);
-		cub->line[1].x = cub->line[0].x;
-		cub->line[1].y = cub->line[0].y;
-		cub->line[1].x += cos(a) * 100;
-		cub->line[1].y += sin(a) * 100;
-		// cub->line[1].x = abs(cub->line[1].x);
-		// cub->line[1].y = abs(cub->line[1].y);
-		printf("x: %d, y: %d\n", cub->line[1].x, cub->line[1].y);
-		if (cub->line[1].x < 0)
-			// cub->line[1].x += cub->line[0].x;
-			cub->line[1].x = 0;
-		if (cub->line[1].y < 0)
-			cub->line[1].y = 0;
-		draw_line(cub);
-		a += RAD;
-		if (a < 0)
-			a += 2 * M_PI;
-		else if (a > 2 * M_PI)
-			a -= 2 * M_PI;
+		j = 0;
+		while (j < cub->map.width)
+		{
+			if (cub->map.arr[i][j] == '1')
+			{
+				cub->color = WHITE;
+				draw_square(cub, j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE);
+			}
+			j++;
+		}
+		i++;
 	}
-	// exit(0);
 }
 
 int	render_player(t_cub *cub)
 {
-	mlx_destroy_image(cub->mlx, cub->img.img);
-	cub->img.img = mlx_new_image(cub->mlx, cub->x_size, cub->y_size);
-	cub->img.addr = mlx_get_data_addr(cub->img.img, &cub->img.bbp, &cub->img.line_len, &cub->img.endian);
-	cub->color = 0xFFFFFF;
+	mlx_destroy_image(cub->mlx, cub->img.ptr);
+	cub->img.ptr = mlx_new_image(cub->mlx, WINDOW_X, WINDOW_Y);
+	cub->img.addr = mlx_get_data_addr(cub->img.ptr, &cub->img.bpp,
+			&cub->img.line_len, &cub->img.endian);
 	render_map_2d(cub);
-	cub->color = 0xFFFF00;
-	draw_square(cub, cub->player.pos.x, cub->player.pos.y, 8, 0);
-	cast_rays(cub, 90);
-	mlx_put_image_to_window(cub->mlx, cub->window, cub->img.img, 0, 0);
+	cub->color = RED;
+	draw_square(cub, cub->player.pos.x, cub->player.pos.y, PLAYER_SIZE);
+	render_map_2d(cub);
+	cub->color = YELLOW;
+	cast_ray(cub);
+	mlx_put_image_to_window(cub->mlx, cub->window, cub->img.ptr, 0, 0);
 	return (0);
 }
 
-int	controls(int key, t_cub *cub)
+void	texture_init(t_cub *cub)
 {
-	if (key == 13)
-		cub->player.pos.y -= 8;
-	else if (key == 0)
-		cub->player.pos.x -= 8;
-	else if (key == 1)
-		cub->player.pos.y += 8;
-	else if (key == 2)
-		cub->player.pos.x += 8;
-	else if (key == 123)
+	int		i;
+	int		j;
+	t_img	*img;
+
+	i = 0;
+	cub->textures = malloc(cub->map.texture_count * sizeof(t_texture));
+	while (i < cub->map.texture_count)
 	{
-		cub->player.a -= 0.1;
-		if (cub->player.a < 0)
-			cub->player.a += 2 * M_PI;
-		cub->player.dist.x = cos(cub->player.a) * 25;
-		cub->player.dist.y = sin(cub->player.a) * 25;
+		j = 0;
+		while (j < 4)
+		{
+			if (j == 0)
+				img = &(cub->textures[i].north);
+			else if (j == 1)
+				img = &(cub->textures[i].south);
+			else if (j == 2)
+				img = &(cub->textures[i].west);
+			else
+				img = &(cub->textures[i].east);
+			img->ptr = mlx_xpm_file_to_image(cub->mlx, cub->map.textures[i * 4 + j], &img->size.x, &img->size.y);
+			img->addr = mlx_get_data_addr(img->ptr, &img->bpp, &img->line_len, &img->endian);
+			j++;
+		}
+		i++;
 	}
-	else if (key == 124)
-	{
-		cub->player.a += 0.1;
-		if (cub->player.a > 2 * M_PI)
-			cub->player.a -= 2 * M_PI;
-		cub->player.dist.x = cos(cub->player.a) * 25;
-		cub->player.dist.y = sin(cub->player.a) * 25;
-	}
-	return (0);
+	cub->curr_texture = &(cub->textures[0]);
+	cub->curr_texture_index = 0;
+	free_array(cub->map.textures, cub->map.texture_count * 4);
 }
 
-void	cub3d()
+// N[0, -1] S[0, 1] E[1, 0] W[-1, 0]
+void	cub3d_init(t_cub *cub)
+{
+	cub->player.dir.x = 0;
+	cub->player.dir.y = -1;
+	cub->player.plane.x = (0.75 * cub->player.dir.y);
+	cub->player.plane.y = -(0.75 * cub->player.dir.x);
+	cub->player.is_crouch = 2;
+	cub->player.pos.x = (10 * TILE_SIZE) + (TILE_SIZE / 2) - PLAYER_SIZE;
+	cub->player.pos.y = (3 * TILE_SIZE) + (TILE_SIZE / 2) - PLAYER_SIZE;
+	cub->mlx = mlx_init();
+	cub->window = mlx_new_window(cub->mlx, WINDOW_X, WINDOW_Y, "cub3d");
+	cub->img.ptr = mlx_new_image(cub->mlx, WINDOW_X, WINDOW_Y);
+	cub->img.addr = mlx_get_data_addr(cub->img.ptr,
+			&cub->img.bpp, &cub->img.line_len, &cub->img.endian);
+	texture_init(cub);
+}
+
+void	cub3d(char *filename)
 {
 	t_cub	cub;
 
-	cub.x_size = 66 * 12 + 2;
-	cub.y_size = 66 * 10 + 2;
-	cub.player.pos.x = 4 * 66 + 28;
-	cub.player.pos.y = 3 * 66 + 28;
-	// cub.player.a = 3 * M_PI_2;
-	cub.player.a = 0;
-	cub.player.dist.x = cos(cub.player.a) * 25;
-	cub.player.dist.y = sin(cub.player.a) * 25;
-	cub.mlx = mlx_init();
-	cub.window = mlx_new_window(cub.mlx, cub.x_size, cub.y_size, "cub3d");
-	cub.img.img = mlx_new_image(cub.mlx, cub.x_size, cub.y_size);
-	cub.img.addr = mlx_get_data_addr(cub.img.img, &cub.img.bbp, &cub.img.line_len, &cub.img.endian);
-	mlx_put_image_to_window(cub.mlx, cub.window, cub.img.img, 0, 0);
-	mlx_key_hook(cub.window, controls, &cub);
+	map_init(&cub, filename);
+	cub.map.textures = malloc(8 * sizeof(char *));
+	cub.map.textures[0] = ft_strdup("textures/quake_wall_1.xpm");
+	cub.map.textures[1]= ft_strdup("textures/quake_wall_2.xpm");
+	cub.map.textures[2] = ft_strdup("textures/quake_wall_3.xpm");
+	cub.map.textures[3] = ft_strdup("textures/quake_wall_3.xpm");
+	cub.map.textures[4] = ft_strdup("textures/42_single_switch.xpm");
+	cub.map.textures[5]= ft_strdup("textures/42_switches.xpm");
+	cub.map.textures[6] = ft_strdup("textures/42_wall.xpm");
+	cub.map.textures[7] = ft_strdup("textures/42_wall.xpm");
+	cub.map.texture_count = 2;
+	cub3d_init(&cub);
+	mlx_hook(cub.window, 2, 1L << 0, controls, &cub);
+	mlx_hook(cub.window, 17, 1L << 1, close_window, &cub);
 	mlx_loop_hook(cub.mlx, render_player, &cub);
-	mlx_loop(cub.mlx);	
+	mlx_loop(cub.mlx);
 }

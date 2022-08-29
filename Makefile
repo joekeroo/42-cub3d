@@ -6,7 +6,8 @@ LIBFT_DIR	= src/libft
 INC_DIR		= inc
 MLX_DIR		= mlx
 
-SRC_FILES	= main.c cub3d.c
+SRC_FILES	= main.c cub3d.c cub3d_utils.c get_next_line.c draw.c map_init.c \
+			  ray_casting.c ray_casting_utils.c controls.c
 
 OBJ_FILES	= ${addprefix ${OBJ_DIR}/, ${SRC_FILES:.c=.o}}
 
