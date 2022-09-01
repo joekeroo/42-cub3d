@@ -6,7 +6,8 @@ LIBFT_DIR	= src/libft
 INC_DIR		= inc
 MLX_DIR		= mlx
 
-SRC_FILES	= main.c cub3d.c cub3d_utils.c cub3d_init.c cub3d_screen_utils.c \
+SRC_FILES	= main.c cub3d.c cub3d_utils.c cub3d_utils_two.c cub3d_init.c \
+			  cub3d_screen_utils.c \
 			  parser.c parsing_utils.c map_error_check.c map_error_utils.c \
 			  filename_error_check.c texture_error_check.c texture_error_utils.c \
 			  color_error_check.c color_error_utils.c \

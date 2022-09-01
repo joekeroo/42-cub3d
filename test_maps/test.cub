@@ -11,10 +11,10 @@ EA textures/42_single_switch.xpm
 NO textures/purple_space_4.xpm
 SO textures/purple_space_4.xpm
 WE textures/purple_space_4.xpm
-EA textures/purple_space_9.xpm
+EA textures/purple_space_4.xpm
 
-F 255, 255, 255
-C 128, 128, 128
+F 50, 50, 50
+C 150, 150, 150
 
 1111111111111111111111
 1000000000000001000001

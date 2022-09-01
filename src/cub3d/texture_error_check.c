@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 15:47:59 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/01 13:44:00 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/01 14:57:47 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	texture_error_check(t_cub *cub, int fd, int print)
 
 	type = 0;
 	check = 1;
-	while (1)
+	while (check && type < 4)
 	{
 		line = get_next_line(fd);
 		if (!line)
@@ -97,8 +97,6 @@ int	texture_error_check(t_cub *cub, int fd, int print)
 		if (!is_empty_line(line))
 			check = check_texture_format(line, type++, print);
 		free(line);
-		if (!check || type > 3)
-			break ;
 	}
 	return (check_texture_conditions(type, check, print));
 }

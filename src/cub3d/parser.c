@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 10:58:54 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/01 13:55:05 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/01 15:11:14 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	save_texture(t_cub *cub, int fd)
 
 	i = 0;
 	cub->map.textures = malloc((cub->map.texture_count * 4) * sizeof(char *));
-	while (1)
+	while (i < cub->map.texture_count * 4)
 	{
 		line = get_next_line(fd);
 		if (!line)
@@ -55,19 +55,18 @@ static void	save_texture(t_cub *cub, int fd)
 			cub->map.textures[i++] = ft_strdup(temp[1]);
 		free_array_null(temp);
 		free(line);
-		if (i == cub->map.texture_count * 4)
-			break ;
 	}
 }
 
 static void	save_color(t_cub *cub, int fd)
 {
 	int		i;
+	int		color;
 	char	*line;
 	char	**temp;
 
 	i = 0;
-	while (1)
+	while (i < 2)
 	{
 		line = get_next_line(fd);
 		if (!line)
@@ -76,14 +75,15 @@ static void	save_color(t_cub *cub, int fd)
 		temp = custom_split(line);
 		if (!is_empty_line(line))
 		{
-			cub->map.top_bot_color[i][0] = ft_atoi(temp[1]);
-			cub->map.top_bot_color[i][1] = ft_atoi(temp[3]);
-			cub->map.top_bot_color[i++][2] = ft_atoi(temp[5]);
+			color = rgb_to_hex(temp[1], temp[3], temp[5]);
+			if (i == 0)
+				cub->map.floor_color = color;
+			else
+				cub->map.ceilling_color = color;
+			i++;
 		}
 		free_array_null(temp);
 		free(line);
-		if (i == 2)
-			break ;
 	}
 }
 

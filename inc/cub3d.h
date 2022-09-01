@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:23 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/01 13:42:29 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/01 15:50:03 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ typedef struct s_map
 	char	player_dir;
 	t_coord	player_pos;
 	int		texture_count;
-	int		top_bot_color[2][3];
+	int		floor_color;
+	int		ceilling_color;
 	int		width;
 	int		height;
 	int		pixel_width;
@@ -181,6 +182,7 @@ int		is_wall(t_cub *cub, t_vect vect);
 void	free_array_null(char **array);
 void	free_array(char **array, int size);
 double	get_distance(t_vect a, t_vect b);
+int		rgb_to_hex(char *red, char *green, char *blue);
 
 // Ray casting functions
 void	render_screen(t_cub *cub);

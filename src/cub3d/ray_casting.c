@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 13:09:13 by jhii              #+#    #+#             */
-/*   Updated: 2022/08/30 10:54:36 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/01 15:50:08 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,30 @@ static	void	draw_texture(t_cub *cub, t_coord *step)
 	}
 }
 
+void	fill_color(t_cub *cub)
+{
+	int		i;
+	t_coord	to_draw;
+
+	i = cub->screen.y_start;
+	to_draw.x = cub->line[0].x;
+	cub->color = cub->map.ceilling_color;
+	while (i < cub->line[0].y)
+	{
+		to_draw.y = i;
+		draw_pixel(cub, to_draw);	
+		i++;
+	}
+	i = cub->line[1].y + 1;
+	cub->color = cub->map.floor_color;
+	while (i <= cub->screen.y_end)
+	{
+		to_draw.y = i;
+		draw_pixel(cub, to_draw);	
+		i++;
+	}
+}
+
 void	render_screen(t_cub *cub)
 {
 	int		x;
@@ -106,6 +130,7 @@ void	render_screen(t_cub *cub)
 		cub->ray.line_height = (int)(cub->screen.size.y
 				/ cub->ray.perp_wall_dist);
 		set_line_coord(cub, x);
+		fill_color(cub);
 		draw_texture(cub, &step);
 		x++;
 	}
