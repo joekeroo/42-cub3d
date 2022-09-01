@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:23 by jhii              #+#    #+#             */
-/*   Updated: 2022/08/29 18:24:49 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/01 13:42:29 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ typedef struct s_map
 {
 	char	**arr;
 	char	**textures;
+	char	player_dir;
+	t_coord	player_pos;
 	int		texture_count;
+	int		top_bot_color[2][3];
 	int		width;
 	int		height;
 	int		pixel_width;
@@ -130,16 +133,38 @@ typedef struct s_cub
 	t_img		*curr_img;
 	int			curr_texture_index;
 	int			color;
+	int			lines_read;
 	void		*mlx;
 	void		*window;
 }				t_cub;
 
-// Main cub3d function
-void	cub3d(char *filename);
-
-// Map initializing functions
-void	print_map_array(t_cub *cub);
+// Parsing and Error checking functions
+int		filename_error_check(char *filename);
+int		check_texture_conditions(int type, int check, int print);
+int		texture_error_check(t_cub *cub, int fd, int print);
+int		check_commas(char *str);
+int		check_split(char **split);
+int		count_token(char *str, int i, int type);
+int		is_digit(char *str);
+int		parser(t_cub *cub, char *filename);
+int		color_error_check(t_cub *cub, int fd);
+int		check_map(t_cub *cub);
+int		check_player(t_cub *cub);
+int		check_valid_map(t_cub *cub);
+int		map_error_check(t_cub *cub, int fd, char *filename);
 void	map_init(t_cub *cub, char *filename);
+void	print_map_array(t_cub *cub);
+
+// Parsing Utilities function
+int		ft_strcmp(char *a, char *b);
+int		is_empty_line(char *str);
+char	*remove_nl(char *str);
+char	**custom_split(char *str);
+void	ft_replace_space(char *str, char c);
+
+// Main cub3d functions
+void	cub3d(t_cub *cub);
+void	cub3d_init(t_cub *cub);
 
 // Drawing functions
 void	draw_pixel(t_cub *cub, t_coord coord);
@@ -149,14 +174,16 @@ void	draw_line(t_cub *cub);
 // Utilities functions
 char	*get_next_line(int fd);
 int		close_window(t_cub *cub);
+int		check_file_is_readable(char *filename);
 int		check_out_of_bounds(t_coord coord);
 int		check_out_of_screen(t_cub *cub, t_coord coord);
 int		is_wall(t_cub *cub, t_vect vect);
+void	free_array_null(char **array);
 void	free_array(char **array, int size);
 double	get_distance(t_vect a, t_vect b);
 
 // Ray casting functions
-void	cast_ray(t_cub *cub);
+void	render_screen(t_cub *cub);
 void	calculate_ray_dir(t_cub *cub, int x, int width);
 void	calculate_delta_dist(t_cub *cub);
 void	calculate_side_dist(t_cub *cub, t_coord *step, t_coord *map);

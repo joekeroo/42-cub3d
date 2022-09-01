@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 11:39:08 by jhii              #+#    #+#             */
-/*   Updated: 2022/08/20 11:40:12 by jhii             ###   ########.fr       */
+/*   Updated: 2022/08/31 16:47:49 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*get_next_line(int fd)
 			return (res);
 	if (storage[0] != '\0' && ft_getnl(storage) > 0)
 	{
-		res = ft_substr(storage, 0, ft_getnl(storage));
+		res = ft_substr(storage, 0, ft_getnl(storage) - 1);
 		temp = ft_substr(storage, ft_getnl(storage), ft_strlen(storage));
 		if (storage[0] != '\0')
 			free(storage);

@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:45:02 by jhii              #+#    #+#             */
-/*   Updated: 2022/08/29 18:19:18 by jhii             ###   ########.fr       */
+/*   Updated: 2022/08/30 10:24:49 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ int	controls(int key, t_cub *cub)
 	}
 	else if (key == T)
 	{
-		cub->curr_texture_index = ++cub->curr_texture_index % cub->map.texture_count;
+		cub->curr_texture_index = ++cub->curr_texture_index
+			% cub->map.texture_count;
 		cub->curr_texture = &(cub->textures[cub->curr_texture_index]);
 	}
 	view_controls(key, cub);
