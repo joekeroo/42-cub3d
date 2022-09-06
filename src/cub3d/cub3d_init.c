@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 10:25:25 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/01 11:09:41 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/06 11:24:57 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,15 @@ static	void	player_dir_init(t_cub *cub)
 void	cub3d_init(t_cub *cub)
 {
 	player_dir_init(cub);
-	cub->player.plane.x = (0.75 * cub->player.dir.y);
-	cub->player.plane.y = -(0.75 * cub->player.dir.x);
+	cub->player.plane.x = cub->player.dir.y;
+	cub->player.plane.y = -cub->player.dir.x;
 	cub->player.is_crouch = 2;
 	cub->player.pos.x = (cub->map.player_pos.x * TILE_SIZE)
 		+ (TILE_SIZE / 2) - (PLAYER_SIZE / 2);
 	cub->player.pos.y = (cub->map.player_pos.y * TILE_SIZE)
 		+ (TILE_SIZE / 2) - (PLAYER_SIZE / 2);
+	cub->player.tile_pos.x = cub->map.player_pos.x;
+	cub->player.tile_pos.y = cub->map.player_pos.y;
 	cub->mlx = mlx_init();
 	cub->window = mlx_new_window(cub->mlx, WINDOW_X, WINDOW_Y, "cub3d");
 	cub->img.ptr = mlx_new_image(cub->mlx, WINDOW_X, WINDOW_Y);

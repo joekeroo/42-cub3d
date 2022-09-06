@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:40:46 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/01 12:52:57 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/06 18:50:32 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ int	map_error_check(t_cub *cub, int fd, char *filename)
 		free_array(cub->map.arr, cub->map.height);
 		return (1);
 	}
-	cub->map.pixel_width = cub->map.width * TILE_SIZE;
-	cub->map.pixel_height = cub->map.height * TILE_SIZE;
-	cub->screen.size.x = WINDOW_X - cub->map.pixel_width - (BORDER * 2);
-	cub->screen.size.y = WINDOW_Y - (BORDER * 2);
-	cub->screen.x_start = cub->map.pixel_width + BORDER;
-	cub->screen.y_start = BORDER;
-	cub->screen.x_end = WINDOW_X - BORDER;
-	cub->screen.y_end = WINDOW_Y - BORDER;
+	cub->screen.size.x = WINDOW_X;
+	cub->screen.size.y = WINDOW_Y;
+	cub->screen.player_pos.x = (MINIMAP_SIZE * TILE_SIZE - PLAYER_SIZE) / 2;
+	cub->screen.player_pos.y = (MINIMAP_SIZE * TILE_SIZE - PLAYER_SIZE) / 2;
+	cub->screen.x_start = 0;
+	cub->screen.y_start = 0;
+	cub->screen.x_end = WINDOW_X;
+	cub->screen.y_end = WINDOW_Y;
 	return (0);
 }

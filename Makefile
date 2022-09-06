@@ -45,7 +45,7 @@ sanitize:	${LIBFT_FILE} ${OBJ_FILES}
 	${GCC} ${CFLAGS} ${MFLAGS} -o ${NAME} ${OBJ_FILES} ${LIBRARIES} ${SANITIZE}
 
 test:	cubclean all
-	./cub3d test_maps/test.cub
+	./cub3d ${FILE}
 
 clean:
 	${RM} ${OBJ_DIR}/*

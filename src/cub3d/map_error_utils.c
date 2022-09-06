@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 12:51:05 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/01 12:51:33 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/06 16:22:09 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_valid_map(t_cub *cub)
 			if (cub->map.arr[i][j] != '0' && cub->map.arr[i][j] != '1' &&
 				cub->map.arr[i][j] != 'N' && cub->map.arr[i][j] != 'S' &&
 				cub->map.arr[i][j] != 'E' && cub->map.arr[i][j] != 'W' &&
-				cub->map.arr[i][j] != ' ')
+				cub->map.arr[i][j] != ' ' && cub->map.arr[i][j] != 'D')
 				return (1);
 			j++;
 		}

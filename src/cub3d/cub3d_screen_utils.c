@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 10:35:58 by jhii              #+#    #+#             */
-/*   Updated: 2022/08/30 10:37:21 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/06 18:15:11 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,15 @@ int	check_out_of_screen(t_cub *cub, t_coord coord)
 
 int	is_wall(t_cub *cub, t_vect vect)
 {
-	int		dist;
-	char	*dest;
 	t_coord	coord;
 
-	coord.x = (int)(vect.x);
-	coord.y = (int)(vect.y);
+	coord.x = (int)(vect.x / TILE_SIZE);
+	coord.y = (int)(vect.y / TILE_SIZE);
 	if (!check_out_of_bounds(coord))
 	{
-		dist = coord.x * (cub->img.bpp / 8) + coord.y * cub->img.line_len;
-		dest = cub->img.addr + dist;
-		if (*(unsigned int *)dest == WHITE)
+		if (cub->map.arr[coord.y][coord.x] == '1')
+			return (1);
+		else if (cub->map.arr[coord.y][coord.x] == 'D' && cub->door_state == 0)
 			return (1);
 		else
 			return (0);

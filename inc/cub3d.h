@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:23 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/01 15:50:03 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/06 19:14:45 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define BORDER			20
+# define MINIMAP_SIZE	15
 # define FOV_TURN_ANGLE	3
 # define MOVE_GAP		3
 # define PLAYER_SIZE	5
@@ -34,7 +34,9 @@
 enum {
 	YELLOW = 0xFFFF00,
 	WHITE = 0xFFFFFF,
-	RED = 0xFF0000
+	RED = 0xFF0000,
+	GRAY = 0x808080,
+	BLACK = 0x000000
 };
 
 enum {
@@ -42,6 +44,7 @@ enum {
 	A = 0,
 	S = 1,
 	D = 2,
+	E = 14,
 	C = 8,
 	T = 17,
 	ESC = 53,
@@ -79,6 +82,7 @@ typedef struct s_map
 typedef struct s_screen
 {
 	t_coord	size;
+	t_vect	player_pos;
 	int		x_start;
 	int		y_start;
 	int		x_end;
@@ -90,6 +94,7 @@ typedef struct s_plyr
 	t_vect	dir;
 	t_vect	pos;
 	t_vect	plane;
+	t_coord	tile_pos;
 	int		is_crouch;
 }				t_plyr;
 
@@ -135,6 +140,10 @@ typedef struct s_cub
 	int			curr_texture_index;
 	int			color;
 	int			lines_read;
+	int			frame;
+	int			door_state;
+	double		limit;
+	char		hit_type;
 	void		*mlx;
 	void		*window;
 }				t_cub;
@@ -186,10 +195,10 @@ int		rgb_to_hex(char *red, char *green, char *blue);
 
 // Ray casting functions
 void	render_screen(t_cub *cub);
-void	calculate_ray_dir(t_cub *cub, int x, int width);
 void	calculate_delta_dist(t_cub *cub);
-void	calculate_side_dist(t_cub *cub, t_coord *step, t_coord *map);
-void	calculate_perp_wall_dist(t_cub *cub, t_coord *stp, t_coord *map);
+void	calculate_side_dist(t_cub *cub, t_coord *step);
+void	calculate_perp_wall_dist(t_cub *cub, t_coord step, t_coord ray_tile);
+double	calculate_wall_hit(t_cub *cub);
 
 // Player control functions
 int		controls(int key, t_cub *cub);

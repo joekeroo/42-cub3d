@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:45:02 by jhii              #+#    #+#             */
-/*   Updated: 2022/08/30 10:24:49 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/06 18:58:46 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static	int	vertical_movement(int key, t_cub *cub)
 			cub->player.pos.y = vect.y;
 		}
 	}
+	cub->player.tile_pos.x = (int)(cub->player.pos.x / TILE_SIZE);
+	cub->player.tile_pos.y = (int)(cub->player.pos.y / TILE_SIZE);
 	return (0);
 }
 
@@ -43,19 +45,17 @@ static	int	horizontal_movement(int key, t_cub *cub)
 {
 	t_vect	vect;
 	t_vect	dir;
+	double	angle;
 
+	angle = 0.0;
 	if (key == A)
-	{
-		dir.x = cub->player.dir.x * cos(-QRAD) - cub->player.dir.y * sin(-QRAD);
-		dir.y = cub->player.dir.y * cos(-QRAD) + cub->player.dir.x * sin(-QRAD);
-	}
+		angle = -QRAD;
 	else if (key == D)
-	{
-		dir.x = cub->player.dir.x * cos(QRAD) - cub->player.dir.y * sin(QRAD);
-		dir.y = cub->player.dir.y * cos(QRAD) + cub->player.dir.x * sin(QRAD);
-	}
+		angle = QRAD;
 	if (key == A || key == D)
 	{
+		dir.x = cub->player.dir.x * cos(angle) - cub->player.dir.y * sin(angle);
+		dir.y = cub->player.dir.y * cos(angle) + cub->player.dir.x * sin(angle);
 		vect.x = cub->player.pos.x + (dir.x * (MOVE_GAP + 0.1));
 		vect.y = cub->player.pos.y + (dir.y * (MOVE_GAP + 0.1));
 		if (!is_wall(cub, vect))
@@ -64,6 +64,8 @@ static	int	horizontal_movement(int key, t_cub *cub)
 			cub->player.pos.y = vect.y;
 		}
 	}
+	cub->player.tile_pos.x = (int)(cub->player.pos.x / TILE_SIZE);
+	cub->player.tile_pos.y = (int)(cub->player.pos.y / TILE_SIZE);
 	return (0);
 }
 
@@ -94,17 +96,29 @@ static	int	view_controls(int key, t_cub *cub)
 	return (0);
 }
 
-int	controls(int key, t_cub *cub)
+static	int	interactive_controls(int key, t_cub *cub)
 {
-	if (key == ESC)
-		close_window(cub);
-	else if (key == C)
+	if (key == C)
 	{
 		if (cub->player.is_crouch == 2)
 			cub->player.is_crouch = 4;
 		else
 			cub->player.is_crouch = 2;
 	}
+	else if (key == E)
+	{
+		if (cub->door_state != 1)
+			cub->door_state = 1;
+		else
+			cub->door_state = 2;
+	}
+	return (0);
+}
+
+int	controls(int key, t_cub *cub)
+{
+	if (key == ESC)
+		close_window(cub);
 	else if (key == T)
 	{
 		cub->curr_texture_index = ++cub->curr_texture_index
@@ -114,5 +128,6 @@ int	controls(int key, t_cub *cub)
 	view_controls(key, cub);
 	vertical_movement(key, cub);
 	horizontal_movement(key, cub);
+	interactive_controls(key, cub);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 17:18:51 by jhii              #+#    #+#             */
-/*   Updated: 2022/08/31 18:19:32 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/06 15:39:25 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static	int	check_digit(char **split, int len)
 			if (i % 2 == 1)
 			{
 				temp = ft_atoi(split[i]);
-				if (temp >= 1 && temp <= 255)
+				if (temp >= 0 && temp <= 255)
 					count++;
 			}
 			i++;
