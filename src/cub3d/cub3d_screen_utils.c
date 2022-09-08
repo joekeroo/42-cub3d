@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 10:35:58 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/06 18:15:11 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/08 18:52:41 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	is_wall(t_cub *cub, t_vect vect)
 	{
 		if (cub->map.arr[coord.y][coord.x] == '1')
 			return (1);
-		else if (cub->map.arr[coord.y][coord.x] == 'D' && cub->door_state == 0)
+		else if (cub->map.arr[coord.y][coord.x] == 'D'
+				&& cub->door_state == CLOSED)
 			return (1);
 		else
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:23 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/06 19:14:45 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/08 18:50:19 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define MOVE_GAP		3
 # define PLAYER_SIZE	5
 # define TILE_SIZE		16
-# define WINDOW_X		2048
-# define WINDOW_Y		1024
+# define WINDOW_X		1024
+# define WINDOW_Y		512
 # define QRAD 			1.5708
 # define RAD 			0.0174533
 
@@ -40,6 +40,7 @@ enum {
 };
 
 enum {
+	Q = 12,
 	W = 13,
 	A = 0,
 	S = 1,
@@ -50,6 +51,13 @@ enum {
 	ESC = 53,
 	LEFT = 123,
 	RIGHT = 124
+};
+
+enum {
+	CLOSED = 0,
+	CLOSING = 1,
+	OPENED = 2,
+	OPENING = 3
 };
 
 typedef struct s_coord
@@ -126,12 +134,19 @@ typedef struct s_texture
 	t_img		east;
 }				t_texture;
 
+typedef struct s_weapon
+{
+	int		status;
+	t_img	frame[10];
+}				t_weapon;
+
 typedef struct s_cub
 {
 	t_img		img;
 	t_ray		ray;
 	t_map		map;
 	t_plyr		player;
+	t_weapon	weapon;
 	t_coord		line[2];
 	t_screen	screen;
 	t_texture	*textures;
@@ -165,7 +180,11 @@ int		map_error_check(t_cub *cub, int fd, char *filename);
 void	map_init(t_cub *cub, char *filename);
 void	print_map_array(t_cub *cub);
 
-// Parsing Utilities function
+// Rendering functions
+void	render_map(t_cub *cub);
+void	render_weapon(t_cub *cub);
+
+// Parsing Utility functions
 int		ft_strcmp(char *a, char *b);
 int		is_empty_line(char *str);
 char	*remove_nl(char *str);

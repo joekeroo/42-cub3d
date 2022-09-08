@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 12:45:41 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/06 19:15:18 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/08 18:44:06 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static	void	check_door_status(t_cub *cub, t_coord ray_tile)
 				- cub->ray.delta_dist.y;
 		wall_hit = calculate_wall_hit(cub);
 		cub->limit = (double)cub->frame * 0.1;
-		if (cub->door_state == 0)
+		if (cub->door_state == CLOSED)
 			cub->hit_type = 'D';
 		if (wall_hit >= cub->limit)
 			cub->hit_type = 'D';

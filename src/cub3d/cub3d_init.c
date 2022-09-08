@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 10:25:25 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/06 11:24:57 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/08 18:51:46 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,30 @@ static	void	player_dir_init(t_cub *cub)
 	}
 }
 
+static	void	weapon_init(t_cub *cub)
+{
+	int		i;
+	char	*filename;
+	char	extension[6];
+
+	i = -1;
+	while (++i < 10)
+	{
+		filename = ft_strdup("weapon/torchlight");
+		extension[0] = i + '0';
+		extension[1] = '\0';
+		ft_strlcat(extension, ".xpm", 10);
+		ft_strlcat(filename, extension, 25);
+		cub->weapon.frame[i].ptr = mlx_xpm_file_to_image(cub->mlx,
+				filename, &cub->weapon.frame[i].size.x,
+				&cub->weapon.frame[i].size.y);
+		cub->weapon.frame[i].addr = mlx_get_data_addr(cub->weapon.frame[i].ptr,
+				&cub->weapon.frame[i].bpp, &cub->weapon.frame[i].line_len,
+				&cub->weapon.frame[i].endian);
+		free(filename);
+	}
+}
+
 // N[0, -1] S[0, 1] E[1, 0] W[-1, 0]
 void	cub3d_init(t_cub *cub)
 {
@@ -96,5 +120,7 @@ void	cub3d_init(t_cub *cub)
 	cub->img.ptr = mlx_new_image(cub->mlx, WINDOW_X, WINDOW_Y);
 	cub->img.addr = mlx_get_data_addr(cub->img.ptr,
 			&cub->img.bpp, &cub->img.line_len, &cub->img.endian);
+	cub->weapon.status = OPENED;
+	weapon_init(cub);
 	texture_init(cub);
 }
