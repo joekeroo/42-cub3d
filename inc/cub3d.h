@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:23 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/08 18:50:19 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/08 19:34:30 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,14 +203,15 @@ void	draw_line(t_cub *cub);
 // Utilities functions
 char	*get_next_line(int fd);
 int		close_window(t_cub *cub);
+int		is_wall(t_cub *cub, t_vect vect);
 int		check_file_is_readable(char *filename);
 int		check_out_of_bounds(t_coord coord);
 int		check_out_of_screen(t_cub *cub, t_coord coord);
-int		is_wall(t_cub *cub, t_vect vect);
+int		rgb_to_hex(char *red, char *green, char *blue);
 void	free_array_null(char **array);
 void	free_array(char **array, int size);
+void	update_door_frame(t_cub *cub, int type);
 double	get_distance(t_vect a, t_vect b);
-int		rgb_to_hex(char *red, char *green, char *blue);
 
 // Ray casting functions
 void	render_screen(t_cub *cub);

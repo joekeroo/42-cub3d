@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 12:45:41 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/08 18:44:06 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/08 19:15:20 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ static	void	check_door_status(t_cub *cub, t_coord ray_tile)
 {
 	double	wall_hit;
 
-	if (cub->map.arr[ray_tile.y][ray_tile.x] == 'D')
+	if (cub->map.arr[ray_tile.y][ray_tile.x] == 'D'
+		|| cub->map.arr[ray_tile.y][ray_tile.x] == 'O')
 	{
 		if (cub->ray.side_hit == 0)
 			cub->ray.perp_wall_dist = cub->ray.side_dist.x

@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:16 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/08 18:46:31 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/08 19:44:12 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static	int	render_player(t_cub *cub)
 {
 	if (cub->door_state == OPENING && cub->limit <= 1.0)
-		cub->frame++;
+		update_door_frame(cub, 1);
 	else if (cub->door_state == CLOSING && cub->frame > 0)
-		cub->frame--;
+		update_door_frame(cub, 2);
 	else if (cub->frame == 0)
 		cub->door_state = CLOSED;
 	mlx_destroy_image(cub->mlx, cub->img.ptr);

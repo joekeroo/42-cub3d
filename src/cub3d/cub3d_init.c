@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 10:25:25 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/08 18:51:46 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/08 20:21:09 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	cub3d_init(t_cub *cub)
 	cub->img.ptr = mlx_new_image(cub->mlx, WINDOW_X, WINDOW_Y);
 	cub->img.addr = mlx_get_data_addr(cub->img.ptr,
 			&cub->img.bpp, &cub->img.line_len, &cub->img.endian);
-	cub->weapon.status = OPENED;
+	cub->weapon.status = CLOSED;
 	weapon_init(cub);
 	texture_init(cub);
 }

@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:50:43 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/06 18:50:44 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/08 19:34:40 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,18 @@ int	rgb_to_hex(char *red_char, char *green_char, char *blue_char)
 	color += (blue / 16) * 16;
 	color += (blue % 16);
 	return (color);
+}
+
+void	update_door_frame(t_cub *cub, int type)
+{
+	if (type == 1)
+	{
+		cub->frame++;
+		cub->map.arr[4][3] = 'O';
+	}
+	else if (type == 2)
+	{
+		cub->frame--;
+		cub->map.arr[4][3] = 'D';
+	}
 }

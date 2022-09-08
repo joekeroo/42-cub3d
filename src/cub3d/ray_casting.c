@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 13:09:13 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/06 19:14:30 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/08 20:19:04 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,15 @@ void	fill_color(t_cub *cub)
 	cub->color = cub->map.ceilling_color;
 	while (i < cub->line[0].y)
 	{
-		to_draw.y = i;
+		to_draw.y = i++;
 		draw_pixel(cub, to_draw);
-		i++;
 	}
 	i = cub->line[1].y + 1;
 	cub->color = cub->map.floor_color;
 	while (i <= cub->screen.y_end)
 	{
-		to_draw.y = i;
+		to_draw.y = i++;
 		draw_pixel(cub, to_draw);
-		i++;
 	}
 }
 
@@ -104,18 +102,22 @@ void	render_screen(t_cub *cub)
 	x = 0;
 	while (x < cub->screen.size.x)
 	{
-		camera_x = 2.0 * x / (double)cub->screen.size.x - 1.0;
-		cub->ray.dir.x = cub->player.dir.x - cub->player.plane.x * camera_x;
-		cub->ray.dir.y = cub->player.dir.y - cub->player.plane.y * camera_x;
-		calculate_delta_dist(cub);
-		calculate_side_dist(cub, &step);
-		calculate_perp_wall_dist(cub, step, cub->player.tile_pos);
-		cub->ray.line_height = (int)(cub->screen.size.y
-				/ cub->ray.perp_wall_dist);
-		set_line_coord(cub, x);
-		fill_color(cub);
-		set_curr_img(cub, step);
-		draw_texture(cub);
+		if (x % 2 == 0 || (x > cub->screen.size.x / 4 && x
+				< (cub->screen.size.x / 4) * 3 && cub->weapon.status == OPENED))
+		{
+			camera_x = 2.0 * x / (double)cub->screen.size.x - 1.0;
+			cub->ray.dir.x = cub->player.dir.x - cub->player.plane.x * camera_x;
+			cub->ray.dir.y = cub->player.dir.y - cub->player.plane.y * camera_x;
+			calculate_delta_dist(cub);
+			calculate_side_dist(cub, &step);
+			calculate_perp_wall_dist(cub, step, cub->player.tile_pos);
+			cub->ray.line_height = (int)(cub->screen.size.y
+					/ cub->ray.perp_wall_dist);
+			set_line_coord(cub, x);
+			fill_color(cub);
+			set_curr_img(cub, step);
+			draw_texture(cub);
+		}
 		x++;
 	}
 }
