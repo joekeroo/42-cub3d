@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:16 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/08 19:44:12 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/09 14:29:58 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static	int	render_player(t_cub *cub)
 	cub->color = BLACK;
 	draw_square(cub, cub->screen.player_pos.x,
 		cub->screen.player_pos.y, PLAYER_SIZE);
+	render_map(cub);
 	cub->color = RED;
 	draw_square(cub, cub->screen.player_pos.x + 1,
 		cub->screen.player_pos.y + 1, PLAYER_SIZE - 2);
-	render_map(cub);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->img.ptr, 0, 0);
 	render_weapon(cub);
 	return (0);

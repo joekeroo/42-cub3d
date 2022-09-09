@@ -1,0 +1,29 @@
+NO textures/42_single_switch.xpm
+SO textures/42_wall.xpm
+WE textures/42_switches.xpm
+EA textures/42_single_switch.xpm
+
+NO textures/quake_wall_1.xpm
+SO textures/quake_wall_2.xpm
+WE textures/quake_wall_3.xpm
+EA textures/quake_wall_3.xpm
+
+NO textures/purple_space_4.xpm
+SO textures/purple_space_4.xpm
+WE textures/purple_space_4.xpm
+EA textures/purple_space_4.xpm
+
+F 50, 50, 50
+C 150, 150, 150
+
+1111111111111111
+10000D0000010001
+10000100000D0001
+11D1111111D10001
+10000D0001011111
+100001000D01
+111111111101
+         1D1
+         101
+         1N1
+         111

@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 13:09:13 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/08 20:19:04 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/09 14:03:28 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static	void	draw_texture(t_cub *cub)
 	}
 }
 
-void	fill_color(t_cub *cub)
+static	void	fill_color(t_cub *cub, int x)
 {
 	int		i;
 	t_coord	to_draw;
@@ -79,31 +79,37 @@ void	fill_color(t_cub *cub)
 	i = cub->screen.y_start;
 	to_draw.x = cub->line[0].x;
 	cub->color = cub->map.ceilling_color;
-	while (i < cub->line[0].y)
+	if (x % 2 == 0)
 	{
-		to_draw.y = i++;
-		draw_pixel(cub, to_draw);
-	}
-	i = cub->line[1].y + 1;
-	cub->color = cub->map.floor_color;
-	while (i <= cub->screen.y_end)
-	{
-		to_draw.y = i++;
-		draw_pixel(cub, to_draw);
+		while (i < cub->line[0].y)
+		{
+			to_draw.y = i;
+			draw_pixel(cub, to_draw);
+			i++;
+		}
+		i = cub->line[1].y + 1;
+		cub->color = cub->map.floor_color;
+		while (i <= cub->screen.y_end)
+		{
+			to_draw.y = i;
+			draw_pixel(cub, to_draw);
+			i++;
+		}
 	}
 }
 
 void	render_screen(t_cub *cub)
 {
-	int		x;
-	double	camera_x;
-	t_coord	step;
+	int			x;
+	double		camera_x;
+	t_coord		step;
 
-	x = 0;
-	while (x < cub->screen.size.x)
+	x = -1;
+	while (++x < cub->screen.size.x)
 	{
-		if (x % 2 == 0 || (x > cub->screen.size.x / 4 && x
-				< (cub->screen.size.x / 4) * 3 && cub->weapon.status == OPENED))
+		if (x % 2 == 0 || (x > cub->screen.size.x / TORCH_FOV
+				&& x < (cub->screen.size.x / TORCH_FOV) * (TORCH_FOV - 1)
+				&& cub->weapon.status == OPENED))
 		{
 			camera_x = 2.0 * x / (double)cub->screen.size.x - 1.0;
 			cub->ray.dir.x = cub->player.dir.x - cub->player.plane.x * camera_x;
@@ -114,10 +120,9 @@ void	render_screen(t_cub *cub)
 			cub->ray.line_height = (int)(cub->screen.size.y
 					/ cub->ray.perp_wall_dist);
 			set_line_coord(cub, x);
-			fill_color(cub);
+			fill_color(cub, x);
 			set_curr_img(cub, step);
 			draw_texture(cub);
 		}
-		x++;
 	}
 }

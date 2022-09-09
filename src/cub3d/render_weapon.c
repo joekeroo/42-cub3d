@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:52:31 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/08 18:51:43 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/09 11:08:04 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,25 @@ static	void	render_opening(t_cub *cub, int *frame)
 	if (cub->weapon.status == OPENING)
 	{
 		*frame = *frame + 1;
-		if (*frame < 3)
+		if (*frame < 1 * TORCH_FPS)
 			check_condition(cub, 9);
-		else if (*frame < 6)
+		else if (*frame < 2 * TORCH_FPS)
 			check_condition(cub, 8);
-		else if (*frame < 9)
+		else if (*frame < 3 * TORCH_FPS)
 			check_condition(cub, 7);
-		else if (*frame < 12)
+		else if (*frame < 4 * TORCH_FPS)
 			check_condition(cub, 6);
-		else if (*frame < 15)
+		else if (*frame < 5 * TORCH_FPS)
 			check_condition(cub, 5);
-		else if (*frame < 18)
+		else if (*frame < 6 * TORCH_FPS)
 			check_condition(cub, 4);
-		else if (*frame < 21)
+		else if (*frame < 7 * TORCH_FPS)
 			check_condition(cub, 3);
-		else if (*frame < 24)
+		else if (*frame < 8 * TORCH_FPS)
 			check_condition(cub, 2);
-		else if (*frame < 27)
+		else if (*frame < 9 * TORCH_FPS)
 			check_condition(cub, 1);
-		else if (*frame < 30)
+		else if (*frame < 10 * TORCH_FPS)
 			check_last_condition(cub, frame, 0, OPENED);
 	}
 }
@@ -61,25 +61,25 @@ static	void	render_closing(t_cub *cub, int *frame)
 	if (cub->weapon.status == CLOSING)
 	{
 		*frame = *frame + 1;
-		if (*frame < 3)
+		if (*frame < 1 * TORCH_FPS)
 			check_condition(cub, 0);
-		else if (*frame < 6)
+		else if (*frame < 2 * TORCH_FPS)
 			check_condition(cub, 1);
-		else if (*frame < 9)
+		else if (*frame < 3 * TORCH_FPS)
 			check_condition(cub, 2);
-		else if (*frame < 12)
+		else if (*frame < 4 * TORCH_FPS)
 			check_condition(cub, 3);
-		else if (*frame < 15)
+		else if (*frame < 5 * TORCH_FPS)
 			check_condition(cub, 4);
-		else if (*frame < 18)
+		else if (*frame < 6 * TORCH_FPS)
 			check_condition(cub, 5);
-		else if (*frame < 21)
+		else if (*frame < 7 * TORCH_FPS)
 			check_condition(cub, 6);
-		else if (*frame < 24)
+		else if (*frame < 8 * TORCH_FPS)
 			check_condition(cub, 7);
-		else if (*frame < 27)
+		else if (*frame < 9 * TORCH_FPS)
 			check_condition(cub, 8);
-		else if (*frame < 30)
+		else if (*frame < 10 * TORCH_FPS)
 			check_last_condition(cub, frame, 9, CLOSED);
 	}
 }

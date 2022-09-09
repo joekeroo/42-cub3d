@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 12:51:05 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/06 16:22:09 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/09 14:32:46 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ int	check_map(t_cub *cub)
 		j = 0;
 		while (j < cub->map.width)
 		{
-			if (cub->map.arr[i][j] == '0')
+			if (cub->map.arr[i][j] == '0' || cub->map.arr[i][j] == 'N'
+				|| cub->map.arr[i][j] == 'S' || cub->map.arr[i][j] == 'E'
+				|| cub->map.arr[i][j] == 'W' || cub->map.arr[i][j] == 'D')
 			{
 				if (cub->map.arr[i - 1][j] == ' ' ||
 					cub->map.arr[i + 1][j] == ' ' ||

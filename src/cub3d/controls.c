@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:45:02 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/08 18:53:16 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/09 13:48:31 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,13 @@ static	int	interactive_controls(int key, t_cub *cub)
 	}
 	else if (key == E)
 	{
-		if (cub->door_state != OPENING)
-			cub->door_state = OPENING;
-		else
-			cub->door_state = CLOSING;
+		if (door_check(cub))
+		{
+			if (cub->door_state != OPENING)
+				cub->door_state = OPENING;
+			else
+				cub->door_state = CLOSING;
+		}
 	}
 	else if (key == Q)
 	{

@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:50:43 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/08 19:34:40 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/09 13:47:59 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	update_door_frame(t_cub *cub, int type)
 	if (type == 1)
 	{
 		cub->frame++;
-		cub->map.arr[4][3] = 'O';
+		cub->map.arr[cub->player.door.y][cub->player.door.x] = 'O';
 	}
 	else if (type == 2)
 	{
 		cub->frame--;
-		cub->map.arr[4][3] = 'D';
+		cub->map.arr[cub->player.door.y][cub->player.door.x] = 'D';
 	}
 }

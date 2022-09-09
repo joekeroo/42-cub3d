@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:23 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/08 19:34:30 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/09 14:21:55 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@
 # define MOVE_GAP		3
 # define PLAYER_SIZE	5
 # define TILE_SIZE		16
-# define WINDOW_X		1024
-# define WINDOW_Y		512
+# define WINDOW_X		2048
+# define WINDOW_Y		1024
+# define TORCH_FPS 		1
+# define TORCH_FOV 		4.5
 # define QRAD 			1.5708
 # define RAD 			0.0174533
 
@@ -36,7 +38,13 @@ enum {
 	WHITE = 0xFFFFFF,
 	RED = 0xFF0000,
 	GRAY = 0x808080,
+	LIME = 0x32CD32,
 	BLACK = 0x000000
+};
+
+enum {
+	WALL = 1,
+	DOOR = 2
 };
 
 enum {
@@ -57,7 +65,11 @@ enum {
 	CLOSED = 0,
 	CLOSING = 1,
 	OPENED = 2,
-	OPENING = 3
+	OPENING = 3,
+	POS_UP = 1,
+	POS_DOWN = 2,
+	POS_LEFT = 3,
+	POS_RIGHT = 4
 };
 
 typedef struct s_coord
@@ -102,6 +114,7 @@ typedef struct s_plyr
 	t_vect	dir;
 	t_vect	pos;
 	t_vect	plane;
+	t_coord	door;
 	t_coord	tile_pos;
 	int		is_crouch;
 }				t_plyr;
@@ -219,6 +232,9 @@ void	calculate_delta_dist(t_cub *cub);
 void	calculate_side_dist(t_cub *cub, t_coord *step);
 void	calculate_perp_wall_dist(t_cub *cub, t_coord step, t_coord ray_tile);
 double	calculate_wall_hit(t_cub *cub);
+
+// Door Handling fuctions
+int		door_check(t_cub *cub);
 
 // Player control functions
 int		controls(int key, t_cub *cub);
