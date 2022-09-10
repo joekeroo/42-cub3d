@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyun-zhe <hyun-zhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:23 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/09 14:21:55 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/10 17:04:54 by hyun-zhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,7 @@ double	calculate_wall_hit(t_cub *cub);
 int		door_check(t_cub *cub);
 
 // Player control functions
+int		mouse_controls(t_cub *cub);
 int		controls(int key, t_cub *cub);
 
 #endif

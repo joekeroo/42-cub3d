@@ -12,7 +12,7 @@ SRC_FILES	= main.c cub3d.c cub3d_utils.c cub3d_utils_two.c cub3d_init.c \
 			  filename_error_check.c texture_error_check.c texture_error_utils.c \
 			  color_error_check.c color_error_utils.c \
 			  ray_casting.c ray_casting_utils.c controls.c door_check.c \
-			  get_next_line.c draw.c
+			  get_next_line.c draw.c mouse.c
 
 OBJ_FILES	= ${addprefix ${OBJ_DIR}/, ${SRC_FILES:.c=.o}}
 

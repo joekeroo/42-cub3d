@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyun-zhe <hyun-zhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:16 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/09 14:29:58 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/10 16:55:51 by hyun-zhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static	int	render_player(t_cub *cub)
 		update_door_frame(cub, 2);
 	else if (cub->frame == 0)
 		cub->door_state = CLOSED;
+	mouse_controls(cub);
 	mlx_destroy_image(cub->mlx, cub->img.ptr);
 	cub->img.ptr = mlx_new_image(cub->mlx, WINDOW_X, WINDOW_Y);
 	cub->img.addr = mlx_get_data_addr(cub->img.ptr, &cub->img.bpp,
@@ -41,6 +42,8 @@ void	cub3d(t_cub *cub)
 {
 	cub3d_init(cub);
 	cub->frame = 0;
+	mlx_mouse_hide();
+	mlx_mouse_move(cub->window, WINDOW_X / 2, WINDOW_Y / 2);
 	mlx_hook(cub->window, 2, 1L << 0, controls, cub);
 	mlx_hook(cub->window, 17, 1L << 1, close_window, cub);
 	mlx_loop_hook(cub->mlx, render_player, cub);
