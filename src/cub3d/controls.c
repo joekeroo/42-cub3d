@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:45:02 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/15 13:46:46 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/15 15:19:11 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,12 +141,12 @@ int	controls(int key, t_cub *cub)
 	{
 		if (cub->mouse_state == OPENED)
 		{
-			mlx_mouse_show();
+			mlx_mouse_hide();
 			cub->mouse_state = CLOSED;
 		}
 		else if (cub->mouse_state == CLOSED)
 		{
-			mlx_mouse_hide();
+			mlx_mouse_show();
 			cub->mouse_state = OPENED;
 		}
 	}
