@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyun-zhe <hyun-zhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:23 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/10 17:04:54 by hyun-zhe         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:16:23 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ enum {
 	E = 14,
 	C = 8,
 	T = 17,
+	H = 4,
 	ESC = 53,
 	LEFT = 123,
 	RIGHT = 124
@@ -170,6 +171,7 @@ typedef struct s_cub
 	int			lines_read;
 	int			frame;
 	int			door_state;
+	int			mouse_state;
 	double		limit;
 	char		hit_type;
 	void		*mlx;
@@ -224,7 +226,6 @@ int		rgb_to_hex(char *red, char *green, char *blue);
 void	free_array_null(char **array);
 void	free_array(char **array, int size);
 void	update_door_frame(t_cub *cub, int type);
-double	get_distance(t_vect a, t_vect b);
 
 // Ray casting functions
 void	render_screen(t_cub *cub);

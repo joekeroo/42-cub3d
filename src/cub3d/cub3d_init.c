@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 10:25:25 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/09 13:42:36 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/15 13:34:20 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void	cub3d_init(t_cub *cub)
 	cub->img.ptr = mlx_new_image(cub->mlx, WINDOW_X, WINDOW_Y);
 	cub->img.addr = mlx_get_data_addr(cub->img.ptr,
 			&cub->img.bpp, &cub->img.line_len, &cub->img.endian);
+	cub->mouse_state = OPENED;
 	cub->weapon.status = CLOSED;
 	cub->player.door.x = (int)cub->player.pos.x;
 	cub->player.door.y = (int)cub->player.pos.y;

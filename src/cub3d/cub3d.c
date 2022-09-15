@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyun-zhe <hyun-zhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:16 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/10 16:55:51 by hyun-zhe         ###   ########.fr       */
+/*   Updated: 2022/09/15 13:39:51 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static	int	render_player(t_cub *cub)
 		update_door_frame(cub, 2);
 	else if (cub->frame == 0)
 		cub->door_state = CLOSED;
-	mouse_controls(cub);
+	if (cub->mouse_state == OPENED)
+		mouse_controls(cub);
 	mlx_destroy_image(cub->mlx, cub->img.ptr);
 	cub->img.ptr = mlx_new_image(cub->mlx, WINDOW_X, WINDOW_Y);
 	cub->img.addr = mlx_get_data_addr(cub->img.ptr, &cub->img.bpp,

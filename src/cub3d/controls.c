@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:45:02 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/09 13:48:31 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/15 13:46:46 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ static	int	view_controls(int key, t_cub *cub)
 		cub->player.plane.y = cub->player.plane.y * cos(rad * FOV_TURN_ANGLE)
 			+ old_plane_x * sin(rad * FOV_TURN_ANGLE);
 	}
+	vertical_movement(key, cub);
+	horizontal_movement(key, cub);
 	return (0);
 }
 
@@ -135,9 +137,20 @@ int	controls(int key, t_cub *cub)
 			% cub->map.texture_count;
 		cub->curr_texture = &(cub->textures[cub->curr_texture_index]);
 	}
+	else if (key == H)
+	{
+		if (cub->mouse_state == OPENED)
+		{
+			mlx_mouse_show();
+			cub->mouse_state = CLOSED;
+		}
+		else if (cub->mouse_state == CLOSED)
+		{
+			mlx_mouse_hide();
+			cub->mouse_state = OPENED;
+		}
+	}
 	view_controls(key, cub);
-	vertical_movement(key, cub);
-	horizontal_movement(key, cub);
 	interactive_controls(key, cub);
 	return (0);
 }
