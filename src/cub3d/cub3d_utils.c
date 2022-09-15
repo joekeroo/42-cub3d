@@ -6,7 +6,7 @@
 /*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:00:45 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/15 14:24:08 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/15 15:15:57 by jhii             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ static	void	destroy_images(t_cub *cub)
 	i = 0;
 	while (i < 10)
 		mlx_destroy_image(cub->mlx, cub->weapon.frame[i++].ptr);
-	mlx_destroy_image(cub->mlx, cub->textures->north.ptr);
-	mlx_destroy_image(cub->mlx, cub->textures->south.ptr);
-	mlx_destroy_image(cub->mlx, cub->textures->east.ptr);
-	mlx_destroy_image(cub->mlx, cub->textures->west.ptr);
+	i = -1;
+	while (++i < cub->map.texture_count)
+	{
+		mlx_destroy_image(cub->mlx, cub->textures[i].north.ptr);
+		mlx_destroy_image(cub->mlx, cub->textures[i].south.ptr);
+		mlx_destroy_image(cub->mlx, cub->textures[i].east.ptr);
+		mlx_destroy_image(cub->mlx, cub->textures[i].west.ptr);
+	}
 	mlx_destroy_image(cub->mlx, cub->img.ptr);
 	free(cub->textures);
 }
