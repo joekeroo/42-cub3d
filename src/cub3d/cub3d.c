@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyun-zhe <hyun-zhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:16 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/15 15:20:56 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/15 18:53:13 by hyun-zhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static	int	render_player(t_cub *cub)
 void	cub3d(t_cub *cub)
 {
 	cub3d_init(cub);
-	cub->frame = 0;
 	mlx_mouse_move(cub->window, WINDOW_X / 2, WINDOW_Y / 2);
 	mlx_hook(cub->window, 2, 1L << 0, controls, cub);
 	mlx_hook(cub->window, 17, 1L << 1, close_window, cub);

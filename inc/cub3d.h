@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyun-zhe <hyun-zhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:21:23 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/15 14:16:23 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/16 14:09:37 by hyun-zhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
+# include <pthread.h>
+# include <signal.h>
 
 # define MINIMAP_SIZE	15
 # define FOV_TURN_ANGLE	3
@@ -71,6 +73,13 @@ enum {
 	POS_DOWN = 2,
 	POS_LEFT = 3,
 	POS_RIGHT = 4
+};
+
+enum {
+	MUSIC = 0,
+	TORCH_ON = 1,
+	TORCH_OFF = 2,
+	DOORS = 3
 };
 
 typedef struct s_coord
@@ -154,6 +163,13 @@ typedef struct s_weapon
 	t_img	frame[10];
 }				t_weapon;
 
+typedef struct s_audio
+{
+	int			play;
+	int			type;
+	pthread_t	tid;
+}				t_audio;
+
 typedef struct s_cub
 {
 	t_img		img;
@@ -166,6 +182,7 @@ typedef struct s_cub
 	t_texture	*textures;
 	t_texture	*curr_texture;
 	t_img		*curr_img;
+	t_audio		audios[4];
 	int			curr_texture_index;
 	int			color;
 	int			lines_read;
@@ -240,5 +257,8 @@ int		door_check(t_cub *cub);
 // Player control functions
 int		mouse_controls(t_cub *cub);
 int		controls(int key, t_cub *cub);
+
+// Audio
+void	audio_init(t_cub *cub);
 
 #endif

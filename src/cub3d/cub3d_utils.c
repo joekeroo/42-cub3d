@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyun-zhe <hyun-zhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:00:45 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/15 15:15:57 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/15 18:34:25 by hyun-zhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	close_window(t_cub *cub)
 	mlx_destroy_window(cub->mlx, cub->window);
 	free_array(cub->map.arr, cub->map.height);
 	destroy_images(cub);
+	kill(0, SIGINT);
 	exit(0);
 	return (0);
 }

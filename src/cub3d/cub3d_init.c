@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyun-zhe <hyun-zhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 10:25:25 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/15 15:21:02 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/15 18:21:25 by hyun-zhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ void	cub3d_init(t_cub *cub)
 	cub->weapon.status = CLOSED;
 	cub->player.door.x = (int)cub->player.pos.x;
 	cub->player.door.y = (int)cub->player.pos.y;
+	cub->frame = 0;
 	weapon_init(cub);
 	texture_init(cub);
+	audio_init(cub);
 }

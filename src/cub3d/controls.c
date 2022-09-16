@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhii <jhii@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyun-zhe <hyun-zhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:45:02 by jhii              #+#    #+#             */
-/*   Updated: 2022/09/15 15:19:11 by jhii             ###   ########.fr       */
+/*   Updated: 2022/09/16 14:35:16 by hyun-zhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,12 @@ static	int	view_controls(int key, t_cub *cub)
 static	int	interactive_controls(int key, t_cub *cub)
 {
 	if (key == C)
-	{
-		if (cub->player.is_crouch == 2)
-			cub->player.is_crouch = 4;
-		else
-			cub->player.is_crouch = 2;
-	}
+		cub->player.is_crouch = 2 + 2 * (cub->player.is_crouch == 2);
 	else if (key == E)
 	{
 		if (door_check(cub))
 		{
+			cub->audios[DOORS].play = 1;
 			if (cub->door_state != OPENING)
 				cub->door_state = OPENING;
 			else
@@ -119,6 +115,7 @@ static	int	interactive_controls(int key, t_cub *cub)
 	}
 	else if (key == Q)
 	{
+		cub->audios[TORCH_ON + (cub->weapon.status == OPENED)].play = 1;
 		if (cub->weapon.status == OPENED)
 			cub->weapon.status = CLOSING;
 		else if (cub->weapon.status == CLOSED)
