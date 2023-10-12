@@ -81,6 +81,8 @@ cd cub3d && make
 
 - Example of a valid map:
 
+<img width="243" alt="map" src="https://github.com/joekeroo/42-cub3d/assets/58316168/9e51a3fd-172d-4f1b-958c-29b52dfd85c3">
+
 ## Contributors
 
 - [`joekeroo`](https://github.com/joekeroo)
