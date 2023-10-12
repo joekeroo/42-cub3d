@@ -19,26 +19,26 @@ For bonus, we implemented an animated torch with lighting, mouse control, wall c
 1. Download/Clone this repository
 
 ```bash
-git clone https://github.com/joekeroo/42-so_long.git so_long
+git clone https://github.com/joekeroo/42-cub3d.git cub3d
 ```
 
 2. `cd` into the root directory and run `make`
 
 ```bash
-cd so_long && make
+cd cub3d && make
 ```
 
 ### Compilation
 
-- `make` - compiles the program into `so_long`
+- `make` - compiles the program into `cub3d`
 - `make clean` - removes all `.o` files
-- `make fclean` - clean and removes `so_long`
+- `make fclean` - clean and removes `cub3d`
 - `make re` - fclean and recompiles
 
 ### Run the Program
 
 ```bash
-./so_long maps/bonus4.ber
+./cub3d test_maps/small.cub
 ```
 
 ## Contributors
