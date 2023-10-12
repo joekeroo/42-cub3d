@@ -15,7 +15,7 @@ For bonus, we implemented an animated torch with lighting, mouse control, wall c
 - Must be able to set floor and ceiling colors to 2 different colors.
 - `W`, `A`, `S`, `D` keys must control the player movement.
 - `ESC` key will exit the game.
-- The use of images of the [MiniLibX](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html) is mandatory.
+- The use of images of the [MiniLibX](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html) is strongly recommended.
 
 ## Installation & Usage
 
