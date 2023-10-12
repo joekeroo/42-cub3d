@@ -50,6 +50,21 @@ cd cub3d && make
 ./cub3d test_maps/small.cub
 ```
 
+#### Controls
+
+|  Characters   |                 Description                  |
+| :-----------: | :------------------------------------------: |
+|      `W`      |                move forwards                 |
+|      `A`      |               move to the left               |
+|      `S`      |                move backwards                |
+|      `D`      |              move to the right               |
+|      `Q`      |         Equip and unequip torchlight         |
+|      `E`      |                   Interact                   |
+|      `C`      |                    Crouch                    |
+|      `H`      | Toggle between mouse view and arrow key view |
+| `left arrow`  |                  look left                   |
+| `right arrow` |                  look right                  |
+
 ### Map Requirements
 
 - The map can be composed of only these 6 characters:
